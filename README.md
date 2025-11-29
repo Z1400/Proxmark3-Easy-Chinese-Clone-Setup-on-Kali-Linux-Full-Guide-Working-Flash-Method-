@@ -1,59 +1,70 @@
 # Proxmark3 Easy (Chinese 512KB Clone) — Kali Linux & Raspberry Pi 5 Guide
 
 <p align="center">
+  <img src="https://raw.githubusercontent.com/Z1400/Proxmark3-Easy-Chinese-Clone-Setup-on-Kali-Linux-Full-Guide-Working-Flash-Method-/main/E0CEE2E1-7AC4-49CB-BA97-46E045AE3DC1.png" width="600">
+</p>
+
+<p align="center">
   <img alt="Kali Linux" src="https://img.shields.io/badge/Kali_Linux-557C94?logo=kali-linux&logoColor=white&style=for-the-badge">
   <img alt="Raspberry Pi 5" src="https://img.shields.io/badge/Raspberry%20Pi%205-Tested-success?logo=raspberrypi&style=for-the-badge">
   <img alt="Proxmark3 Easy" src="https://img.shields.io/badge/Proxmark3-Easy_Clone-black?style=for-the-badge">
   <img alt="Platform" src="https://img.shields.io/badge/Platform-PM3GENERIC-blue?style=for-the-badge">
-  <img alt="Working" src="https://img.shields.io/badge/Status-Working-success?style=for-the-badge"> 
+  <img alt="Working" src="https://img.shields.io/badge/Status-Working-success?style=for-the-badge">
+</p>
 
-<p align="center"><b>Guide by Byte Knight</b></p>
 ---
 
-## 📘 Table of Contents
-- [📌 About This Guide](#about-this-guide)
-- [⚙️ Requirements](#requirements)
-- [🛠 Installation on Kali Linux](#installation-on-kali-linux)
-- [📥 Download the Proxmark3 Firmware](#download-the-proxmark3-firmware)
-- [🧱 Building the Firmware](#building-the-firmware)
-- [🔥 The ONE Flash Command That Actually Works](#the-one-flash-command-that-actually-works)
-- [🚀 Running the Proxmark3 Client](#running-the-proxmark3-client)
-- [💡 Optional “pm3” Global Command](#optional-pm3-global-command)
-- [📡 Scanning a Tag](#scanning-a-tag)
-- [🔧 Useful PM3 Commands](#useful-pm3-commands)
-- [🧪 Magic Mifare Gen1A Cards](#magic-mifare-gen1a-cards)
-- [🐧 Raspberry Pi 5 Notes](#raspberry-pi-5-notes)
-- [🐞 Troubleshooting](#troubleshooting)
-- [📄 License](#license)
+## Table of Contents
+- [About This Guide](#about-this-guide)
+- [Requirements](#requirements)
+- [Installation on Kali Linux](#installation-on-kali-linux)
+- [Download the Proxmark3 Firmware](#download-the-proxmark3-firmware)
+- [Building the Firmware](#building-the-firmware)
+- [The ONE Flash Command That Actually Works](#the-one-flash-command-that-actually-works)
+- [Running the Proxmark3 Client](#running-the-proxmark3-client)
+- [Optional “pm3” Global Command](#optional-pm3-global-command)
+- [Scanning a Tag](#scanning-a-tag)
+- [Useful PM3 Commands](#useful-pm3-commands)
+- [Magic Mifare Gen1A Cards](#magic-mifare-gen1a-cards)
+- [Raspberry Pi 5 Notes](#raspberry-pi-5-notes)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
+
 ---
 
-# 📌 About This Guide
+# About This Guide
 
-This guide provides a **fully verified, real-hardware-tested** setup for:
+This guide provides a **fully verified, real hardware tested** setup for:
 
 - Proxmark3 Easy 512KB (Chinese clone)  
 - Kali Linux (x64)  
 - Kali Linux ARM64 on Raspberry Pi 5  
 
-Other guides fail due to USB instability, bad flashing instructions, or wrong platform flags.
+Most guides fail due to:
 
-This guide uses the **only reliable flashing method** for Chinese clone boards.
+- USB disconnects  
+- Wrong platform  
+- Flash freezes  
+- Bootrom mismatch  
+- “OLD frame payload too short”  
+
+This guide fixes **all of it**, using the **only 100% reliable flashing method** for the 512KB clone.
 
 ---
 
-# ⚙️ Requirements
+# Requirements
 
 - Kali Linux 2023–2025  
-- Raspberry Pi 5 (optional, highly stable)  
-- Proxmark3 Easy (Chinese 512KB clone)  
-- High-quality short USB cable  
-- Optional: Powered USB hub  
+- Raspberry Pi 5 (recommended — most stable)  
+- Proxmark3 Easy (Black/Blue 512KB clone)  
+- High-quality USB cable  
+- Optional powered USB hub  
 
 ---
 
-# 🛠 Installation on Kali Linux
+# Installation on Kali Linux
 
-## 1️⃣ Install Dependencies
+## 1. Install Dependencies
 
 ```bash
 sudo apt update
@@ -65,7 +76,9 @@ sudo apt install -y \
 
 ---
 
-# 📥 2️⃣ Download the Proxmark3 Firmware
+# Download the Proxmark3 Firmware
+
+## 2. Clone the Iceman (RRG Group) repo
 
 ```bash
 cd ~
@@ -75,9 +88,9 @@ cd proxmark3
 
 ---
 
-# 🧱 Building the Firmware
+# Building the Firmware
 
-## Build for PM3GENERIC (required for 512KB clones)
+## 3. Build for the 512KB Easy Clone
 
 ```bash
 make clean
@@ -85,45 +98,66 @@ make PLATFORM=PM3GENERIC -j"$(nproc)"
 make client PLATFORM=PM3GENERIC -j"$(nproc)"
 ```
 
-Produces:
+This produces:
 
 - Bootrom  
-- OS + FPGA (fullimage)  
+- Fullimage (OS + FPGA)  
 - PM3 client  
 
 ---
 
-# 🔥 The ONE Flash Command That Actually Works
+# The ONE Flash Command That Actually Works
 
-⚠️ **Use ONLY this for Chinese 512KB Easy clones.**
+This is the **only reliable flash process** for Chinese 512KB clones.
+
+---
+
+## 4. Flash Bootrom First
+
+```bash
+./pm3-flash-bootrom /dev/ttyACM0
+```
+
+If ACM1:
+
+```bash
+./pm3-flash-bootrom /dev/ttyACM1
+```
+
+---
+
+## 5. Flash Full Firmware (Bootrom + OS + FPGA)
+
+⭐ **Golden command — 100% success on clone boards**
 
 ```bash
 ./pm3-flash-all --force-prog /dev/ttyACM0
 ```
 
-If detected as ACM1:
+Or ACM1:
 
 ```bash
 ./pm3-flash-all --force-prog /dev/ttyACM1
 ```
 
-Expected output:
+Successful flash ends with:
 
 ```
 ................................ ok
 [+] All done
 ```
 
-This method:
+Then shows:
 
-- Avoids USB frame errors  
-- Works on cheap clone boards  
-- Flashes Bootrom + OS + FPGA  
-- Prints ICEMAN ASCII banner  
+```
+ICEMAN
+(master)
+ASCII banner
+```
 
 ---
 
-# 🚀 Running the Proxmark3 Client
+# Running the Proxmark3 Client
 
 ```bash
 cd ~/proxmark3/client
@@ -144,9 +178,7 @@ hw version
 
 ---
 
-# 💡 Optional “pm3” Global Command
-
-Create easy command:
+# Optional “pm3” Global Command
 
 ```bash
 mkdir -p ~/bin
@@ -170,7 +202,7 @@ echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-Now run from anywhere:
+Now run anywhere:
 
 ```bash
 pm3
@@ -178,7 +210,7 @@ pm3
 
 ---
 
-# 📡 Scanning a Tag
+# Scanning a Tag
 
 ```bash
 hf search
@@ -192,7 +224,7 @@ hf mf info
 
 ---
 
-# 🔧 Useful PM3 Commands
+# Useful PM3 Commands
 
 ### HF (13.56MHz)
 
@@ -218,7 +250,7 @@ lf hid clone <HID-ID>
 
 ---
 
-# 🧪 Magic Mifare Gen1A Cards
+# Magic Mifare Gen1A Cards
 
 ```
 hf mf cwipe
@@ -229,47 +261,47 @@ hf mf restore
 
 ---
 
-# 🐧 Raspberry Pi 5 Notes
+# Raspberry Pi 5 Notes
 
-The **best ARM platform** for PM3.
+The **best ARM platform** for Proxmark3.
 
-Advantages:
+### Advantages:
 
-✔ Stable USB-C  
-✔ Zero disconnects  
-✔ High-speed ARM64 CPU  
-✔ Clean flashing every time  
+✔ Strong USB-C power  
+✔ Zero USB dropouts  
+✔ Fast ARM64 CPU  
+✔ Clean flashing  
 
-Verified:
+### Verified:
 
 ```
-Kali Linux ARM64 + Proxmark3 Easy 512KB clone = Fully Working
+Kali Linux ARM64 + PM3 Easy Clone = Fully Working
 ```
 
 ---
 
-# 🐞 Troubleshooting
+# Troubleshooting
 
-### ❌ Flash freezes  
-→ Bad USB cable  
-→ Re-run with `--force-prog`
+### Flash stops halfway  
+→ Use a better USB cable  
+→ Use `--force-prog`  
 
-### ❌ Not detected  
+### Device not detected  
 ```bash
 dmesg | tail
 ls /dev/ttyACM*
 ```
 
-### ❌ Stuck in bootloader  
+### Stuck in bootloader  
 ```bash
 ./pm3-flash-all --force-prog /dev/ttyACM0
 ```
 
-### ❌ OLD frame payload errors  
-→ USB instability  
-→ Use shorter cable  
+### OLD frame payload errors  
+→ Always USB instability  
+→ Shorter cable  
 
-### ❌ Keyboard broken in PM3 client  
+### Keyboard not working in PM3  
 Run inside:
 
 ```
@@ -284,13 +316,13 @@ pm3
 
 ---
 
-# 📄 License
+# License
 
 MIT License — free to use, modify, and share.
 
 ---
 
-# 🎉 Final Notes
+# Final Notes
 
 This guide is **100% verified on real hardware**:
 
@@ -298,4 +330,4 @@ This guide is **100% verified on real hardware**:
 🟢 Kali Linux  
 🟢 Proxmark3 Easy 512KB clone  
 
-This is the **most complete and reliable guide available**.
+This is the **most complete, stable, accurate guide available.**
