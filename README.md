@@ -1,4 +1,12 @@
 # Proxmark3-Easy-Chinese-Clone-Setup-on-Kali-Linux-Full-Guide-Working-Flash-Method-
+# Proxmark3 Easy (Chinese Black/Blue Clone – 512KB) on Kali Linux
+
+<p align="center">
+  <img alt="Kali Linux" src="https://img.shields.io/badge/Kali_Linux-557C94?logo=kali-linux&logoColor=white&style=for-the-badge">
+  <img alt="Proxmark3 Easy" src="https://img.shields.io/badge/Proxmark3-Easy_Clone-black?style=for-the-badge">
+  <img alt="Platform" src="https://img.shields.io/badge/Platform-PM3GENERIC-blue?style=for-the-badge">
+  <img alt="Status" src="https://img.shields.io/badge/Status-Working-success?style=for-the-badge">
+</p>
 Complete guide for using Proxmark3 Easy (Chinese Black/Blue clone, 512KB) on Kali Linux, including the ONLY reliable flashing method that actually works.
 📡 Proxmark3 Easy (Chinese Black/Blue Clone – 512KB) on Kali Linux
 
