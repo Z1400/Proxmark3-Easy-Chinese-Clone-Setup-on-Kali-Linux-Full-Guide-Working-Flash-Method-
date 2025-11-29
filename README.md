@@ -7,25 +7,24 @@
   <img alt="Platform" src="https://img.shields.io/badge/Platform-PM3GENERIC-blue?style=for-the-badge">
   <img alt="Working" src="https://img.shields.io/badge/Status-Working-success?style=for-the-badge"> 
 
-
+<p align="center"><b>Guide by Byte Knight</b></p>
 ---
 
 ## 📘 Table of Contents
-- [📌 About This Guide](#-about-this-guide)
-- [⚙️ Requirements](#️-requirements)
-- [🛠 Installation on Kali Linux](#-installation-on-kali-linux)
-- [📥 Download the Proxmark3 Firmware](#-download-the-proxmark3-firmware)
-- [🧱 Building the Firmware](#-building-the-firmware)
-- [🔥 The ONE Flash Command That Actually Works](#-the-one-flash-command-that-actually-works)
-- [🚀 Running the Proxmark3 Client](#-running-the-proxmark3-client)
-- [💡 Optional “pm3” Global Command](#-optional-pm3-global-command)
-- [📡 Scanning a Tag](#-scanning-a-tag)
-- [🔧 Useful PM3 Commands](#-useful-pm3-commands)
-- [🧪 Magic Mifare Gen1A Cards](#-magic-mifare-gen1a-cards)
-- [🐧 Raspberry Pi 5 Notes](#-raspberry-pi-5-notes)
-- [🐞 Troubleshooting](#-troubleshooting)
-- [📄 License](#-license)
-
+- [📌 About This Guide](#about-this-guide)
+- [⚙️ Requirements](#requirements)
+- [🛠 Installation on Kali Linux](#installation-on-kali-linux)
+- [📥 Download the Proxmark3 Firmware](#download-the-proxmark3-firmware)
+- [🧱 Building the Firmware](#building-the-firmware)
+- [🔥 The ONE Flash Command That Actually Works](#the-one-flash-command-that-actually-works)
+- [🚀 Running the Proxmark3 Client](#running-the-proxmark3-client)
+- [💡 Optional “pm3” Global Command](#optional-pm3-global-command)
+- [📡 Scanning a Tag](#scanning-a-tag)
+- [🔧 Useful PM3 Commands](#useful-pm3-commands)
+- [🧪 Magic Mifare Gen1A Cards](#magic-mifare-gen1a-cards)
+- [🐧 Raspberry Pi 5 Notes](#raspberry-pi-5-notes)
+- [🐞 Troubleshooting](#troubleshooting)
+- [📄 License](#license)
 ---
 
 # 📌 About This Guide
